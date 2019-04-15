@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Formula One Winners App
+
+This is a project to consume the [Ergast](http://ergast.com/mrd/ "Ergast") API
+
+## [ Live Demo](https://formula-one-winners.netlify.com " Live Demo")
 
 ## Available Scripts
 
