@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.scss';
+import Router from './router/Router';
 
 class App extends Component {
   render() {
-    return (<div></div>);
+    return (<Router />);
   }
 }
 
