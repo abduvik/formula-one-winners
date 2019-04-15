@@ -1,7 +1,8 @@
 .winner-row {
   .ui.header > .icon {
-    display: inline;
+    display: inline-block;
     font-size: 1rem;
     line-height: 1rem;
+    margin-top: -5px;
   }
 }
