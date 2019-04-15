@@ -8,7 +8,7 @@ export default class WinnersList extends Component {
     this.state = {
       loaded: false,
       year: this.props.year,
-      races: []
+      drivers: []
     };
   }
 
@@ -16,28 +16,35 @@ export default class WinnersList extends Component {
     Promise.all([ErgastAPI.getWorldChampion(this.state.year), ErgastAPI.getWinners(this.state.year)]).then(res => {
       // Get the Data
       let champion = res[0].MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Driver;
-      let races = res[1].MRData.RaceTable.Races;
+      let drivers = res[1].MRData.RaceTable.Races.map(race => race.Results[0].Driver);
 
-      // Flag the World Champion;
-      races = races.map(race => {
-        if (race.Results[0].Driver.driverId === champion.driverId) {
-          race.Results[0].Driver.champion = true;
-        } else {
-          race.Results[0].Driver.champion = false;
+      // Remove dulpicates
+      let driversDictionary = {};
+      for (let driver of drivers) {
+        if (!driversDictionary[driver.driverId]) {
+          // Flag the World Champion
+          if (driver.driverId === champion.driverId) {
+            driver.champion = true;
+          } else {
+            driver.champion = false;
+          }
+
+          // Add Driver
+          driversDictionary[driver.driverId] = driver;
         }
-        return race;
-      });
+      }
 
       // Set state of the data
       this.setState({
         loaded: true,
-        races: races
+        drivers: [...Object.values(driversDictionary)]
       });
+
     });
   }
 
   generateWinnersRow = () => {
-    return this.state.races.map(race => <WinnerRow key={race.raceName} race={race} />);
+    return this.state.drivers.map(driver => <WinnerRow key={driver.driverId} driver={driver} />);
   };
 
   render() {

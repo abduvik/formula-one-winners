@@ -9,7 +9,6 @@ export class Winners extends Component {
     this.state = {
       loaded: false,
       year: this.props.match.params.year,
-      races: []
     };
   }
 
