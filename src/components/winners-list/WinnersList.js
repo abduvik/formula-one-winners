@@ -16,6 +16,8 @@ export default class WinnersList extends Component {
     Promise.all([ErgastAPI.getWorldChampion(this.state.year), ErgastAPI.getWinners(this.state.year)]).then(res => {
       // Get the Data
       let champion = res[0].MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Driver;
+      champion.champion = true;
+      
       let drivers = res[1].MRData.RaceTable.Races.map(race => race.Results[0].Driver);
 
       // Remove dulpicates
@@ -23,21 +25,17 @@ export default class WinnersList extends Component {
       for (let driver of drivers) {
         if (!driversDictionary[driver.driverId]) {
           // Flag the World Champion
-          if (driver.driverId === champion.driverId) {
-            driver.champion = true;
-          } else {
+          if (driver.driverId !== champion.driverId) {
             driver.champion = false;
+            driversDictionary[driver.driverId] = driver;
           }
-
-          // Add Driver
-          driversDictionary[driver.driverId] = driver;
         }
       }
 
       // Set state of the data
       this.setState({
         loaded: true,
-        drivers: [...Object.values(driversDictionary)]
+        drivers: [champion, ...Object.values(driversDictionary)]
       });
 
     });
