@@ -2,9 +2,11 @@
 
 This is a project to consume the [Ergast](http://ergast.com/mrd/ "Ergast") API to list the winners of Forumla One Races from 2005 to 2015 and also marks the World Champion for the selected year.
 
-Project was built using ReactJS 16, React-Router-DOM 5 and Semantic-UI 2.4.1. It start by creating the boxes for the years and then allows to click on any box to go to the winners page. On the Winners Page, two requests are sent:
+Project was built using ReactJS 16, React-Router-DOM 5 and Semantic-UI 2.4.1. It starts by creating the boxes for the years from 2005 to 2015 and then allows to click on any box to go to the winners page.
+
+On the Winners Page, two requests are sent:
 - [Get Winners for a specific year](https://ergast.com/api/f1/2008/results/1.json "Get Winners for a specific year") https://ergast.com/api/f1/{year}/results/1.json
-- [Ergast](https://ergast.com/api/f1/2008/driverStandings/1.json "Get World Champion for a specific year") https://ergast.com/api/f1/{year}/driverStandings/1.json
+- [Get World Champion for a specific year](https://ergast.com/api/f1/2008/driverStandings/1.json "Get World Champion for a specific year") https://ergast.com/api/f1/{year}/driverStandings/1.json
 
 Where {year} is replaced by the year of the championship.
 
